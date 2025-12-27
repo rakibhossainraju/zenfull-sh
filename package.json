@@ -1,8 +1,8 @@
 {
   "name": "@light_yagami/zenfull-sh-setup",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Zenfull Shell Setup - A CLI tool to setup Zenfull Shell environment quickly.",
-  "main": "bin/index.ts",
+  "main": "bin/install.js",
   "type": "module",
   "author": "Rakib Hossain Raju",
   "license": "ISC",
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/rakibhossainraju/zenfull-sh.git"
   },
   "bin": {
-    "zenfull-sh-setup": "bin/index.ts"
+    "zenfull-sh-setup": "bin/install.js"
   },
   "files": [
     "bin"
