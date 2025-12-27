@@ -1,6 +1,6 @@
 {
   "name": "@light_yagami/zenfull-sh-setup",
-  "version": "1.0.7",
+  "version": "1.0.1",
   "description": "Zenfull Shell Setup - A CLI tool to setup Zenfull Shell environment quickly.",
   "main": "bin/index.ts",
   "type": "module",
