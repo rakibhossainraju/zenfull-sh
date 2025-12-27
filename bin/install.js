@@ -3,10 +3,24 @@ import * as fs from "fs";
 import * as path from "path";
 import * as readline from "readline";
 
+/** @type {string} User's home directory */
 const HOME = process.env.HOME || process.env.USERPROFILE || "";
+
+/** @type {string} Path to .zshrc file in home directory */
 const ZSHRC_PATH = path.join(HOME, ".zshrc");
 
-async function promptUser(question: string): Promise<string> {
+/**
+ * Prompts the user with a question and returns their lowercase response.
+ *
+ * @async
+ * @param {string} question - The question to display to the user
+ * @returns {Promise<string>} The user's lowercased answer
+ *
+ * @example
+ * const answer = await promptUser("Choose an option (a/b/c): ");
+ * console.log(answer); // "a"
+ */
+async function promptUser(question) {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -20,7 +34,18 @@ async function promptUser(question: string): Promise<string> {
   });
 }
 
-async function handleExistingZshrc(): Promise<void> {
+/**
+ * Handles the case when a .zshrc file already exists.
+ * Prompts the user with three options:
+ * - a) I've moved the data to the new file
+ * - b) Delete the existing file and add the new one
+ * - c) Cancel
+ *
+ * @async
+ * @returns {Promise<void>}
+ * @throws {Error} If file operations fail
+ */
+async function handleExistingZshrc() {
   console.log("\n⚠️  A .zshrc file already exists at ~/.zshrc\n");
   console.log("If you don't want to lose any data, please move any variables or declarations to the new file.\n");
 
@@ -58,7 +83,16 @@ async function handleExistingZshrc(): Promise<void> {
   }
 }
 
-async function main(): Promise<void> {
+/**
+ * Main entry point for the Zenfull Shell installation.
+ * Checks if a .zshrc file exists and handles accordingly:
+ * - If it exists: prompts user for action
+ * - If it doesn't exist: copies new .zshrc to home directory
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+async function main() {
   try {
     console.log("🔧 Installing Zenfull Shell Configuration...\n");
 
@@ -71,7 +105,7 @@ async function main(): Promise<void> {
       console.log("✓ Installation complete!");
     }
   } catch (error) {
-    console.error("❌ Error:", (error as Error).message);
+    console.error("❌ Error:", error.message);
     process.exit(1);
   }
 }
