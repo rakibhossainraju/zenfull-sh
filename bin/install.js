@@ -2,9 +2,13 @@
 import * as fs from "fs";
 import * as path from "path";
 import * as readline from "readline";
+import fileToDirName from "./file-url-to-dir-name.js";
 
 /** @type {string} User's home directory */
 const HOME = process.env.HOME || process.env.USERPROFILE || "";
+
+/** @type {string} Path to local .zshrc file */
+const LOCAL_ZSHRC_PATH = path.join(path.resolve(fileToDirName(import.meta.url).__dirname, ".zshrc"));
 
 /** @type {string} Path to .zshrc file in home directory */
 const ZSHRC_PATH = path.join(HOME, ".zshrc");
@@ -101,7 +105,7 @@ async function main() {
     } else {
       console.log("✓ No existing .zshrc file found.");
       console.log("✓ Copying new .zshrc to ~/.zshrc...");
-      fs.copyFileSync(path.join(process.cwd(), ".zshrc"), ZSHRC_PATH);
+      fs.copyFileSync(path.join(LOCAL_ZSHRC_PATH), ZSHRC_PATH);
       console.log("✓ Installation complete!");
     }
   } catch (error) {
