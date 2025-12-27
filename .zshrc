@@ -157,4 +157,4 @@ alias vpn-off='warp-cli disconnect'
 # ============================================================================
 
 eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
