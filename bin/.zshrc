@@ -61,6 +61,10 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.local/bin:$PATH"
+if command -v yarn &> /dev/null; then
+  export PATH="$(yarn global bin 2>/dev/null):$PATH"
+fi
+export PATH="$HOME/.yarn/bin:$PATH"
 
 # ============================================================================
 # SHELL INTEGRATIONS
