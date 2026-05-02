@@ -39,7 +39,7 @@ jobs:
           echo "new_version=$VERSION" >> $GITHUB_OUTPUT
 
           # Check if version already exists on npm
-          if npm view "@light_yagami/zenfull-sh@$VERSION" version > /dev/null 2>&1; then
+          if npm view "@light_yagami/zenfull-sh-setup@$VERSION" version > /dev/null 2>&1; then
             echo "Version $VERSION already exists on npm. Skipping publish."
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
