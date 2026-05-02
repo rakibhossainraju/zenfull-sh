@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    environment: npm-pkg-release
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@light_yagami"
+
+      - name: Verify syntax
+        run: |
+          find bin -name "*.js" -exec node --check {} +
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "new_version=$VERSION" >> $GITHUB_OUTPUT
+
+          # Check if version already exists on npm
+          if npm view "@light_yagami/zenfull-sh@$VERSION" version > /dev/null 2>&1; then
+            echo "Version $VERSION already exists on npm. Skipping publish."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish to npm
+        if: steps.version.outputs.should_publish == 'true'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: steps.version.outputs.should_publish == 'true'
+        with:
+          tag_name: v${{ steps.version.outputs.new_version }}
+          body: |
+            Automated release for @light_yagami/zenfull-sh
+            Version: ${{ steps.version.outputs.new_version }}
+            Commit: ${{ github.sha }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_HUB_TOKEN }}
