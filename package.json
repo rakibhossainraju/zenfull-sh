@@ -5,7 +5,7 @@
   "main": "bin/install.js",
   "type": "module",
   "author": "Rakib Hossain Raju",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rakibhossainraju/zenfull-sh.git"
