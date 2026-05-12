@@ -65,6 +65,8 @@ if command -v yarn &> /dev/null; then
   export PATH="$(yarn global bin 2>/dev/null):$PATH"
 fi
 export PATH="$HOME/.yarn/bin:$PATH"
+# Bun setup
+export PATH="$HOME/.bun/bin:$PATH"
 
 # ============================================================================
 # SHELL INTEGRATIONS
@@ -155,6 +157,11 @@ alias c='clear'
 alias zi='zoxide query -i'
 alias vpn-on='warp-cli connect'
 alias vpn-off='warp-cli disconnect'
+alias yd='yarn dev'
+alias ys='yarn start'
+alias bs='bun start'
+alias bd='bun dev'
+alias bi='bun install'
 
 # ============================================================================
 # ADDITIONAL SHELL INTEGRATIONS
