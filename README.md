@@ -14,7 +14,7 @@ A CLI tool for personal ZSH environment setup automation. Stop cloning 100 repos
 You can set up your environment using this tool with a single command:
 
 ```bash
-npx @light_yagami/zenfull-sh
+npx @light_yagami/zenfull-sh-setup
 ```
 
 ## Getting Started
